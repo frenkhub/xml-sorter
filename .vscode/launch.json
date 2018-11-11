@@ -1,0 +1,76 @@
+{
+    // Usare IntelliSense per informazioni sui possibili attributi.
+    // Al passaggio del mouse vengono visualizzate le descrizioni degli attributi esistenti.
+    // Per ulteriori informazioni, visitare: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Sort tags with the same name by attributes values",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+                "integration-test/0-input.xml"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "sort tags with the same name by attributes keys (custom)",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+                "-a",
+                "f b",
+                "integration-test/1-input.xml"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "sort tag by name",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+                "integration-test/2-input.xml"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "sort tag by name (custom)",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+                "-t",
+                "d",
+                "integration-test/2-input.xml"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Mocha All",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "--timeout",
+                "999999",
+                "--colors",
+                "${workspaceFolder}/test"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Mocha Current File",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "--timeout",
+                "999999",
+                "--colors",
+                "${file}"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}

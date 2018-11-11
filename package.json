@@ -2,18 +2,20 @@
   "name": "xml-sorter",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx mocha -w"
   },
   "bin": {
-    "xml-sorter": "./index.js"
+    "xml-sorter": "./src/cli.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "commander": "^2.19.0",
-    "pixl-xml": "github:frenkhub/pixl-xml#custom-sorting",
-    "shelljs": "^0.8.2"
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
