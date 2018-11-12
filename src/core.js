@@ -85,11 +85,11 @@ exports.writeFile = function (path, content) {
 var createSortingOptions = exports.createSortingOptions = function (
         tagComparatorByName,
         tagComparatorByAttributes,
-        attributesComparator) {
+        attComparatorByName) {
         return ({
                 tagComparatorByName: tagComparatorByName || alphabeticalComparator,
                 tagComparatorByAttributes: tagComparatorByAttributes || buildObjectComparator(),
-                tagComparatorByAttributes: attributesComparator || alphabeticalComparator
+                attComparatorByName: attComparatorByName || alphabeticalComparator
         });
 }
 
@@ -115,5 +115,5 @@ exports.sort = function (xmlString, opts) {
                 undefined,
                 opts.tagComparatorByName,
                 opts.tagComparatorByAttributes,
-                opts.attributesComparator);
+                opts.attComparatorByName);
 }

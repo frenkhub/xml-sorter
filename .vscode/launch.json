@@ -43,6 +43,26 @@
                 "d",
                 "integration-test/2-input.xml"
             ]
+		},
+		{
+            "type": "node",
+            "request": "launch",
+            "name": "sort attributes by name",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+                "integration-test/3-input.xml"
+            ]
+		},
+		{
+            "type": "node",
+            "request": "launch",
+            "name": "sort attributes by name (custom)",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+				"-a",
+				"z",
+                "integration-test/3-input.xml"
+            ]
         },
         {
             "type": "node",

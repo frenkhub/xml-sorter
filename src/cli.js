@@ -22,7 +22,7 @@ function examples() {
 }
 
 program
-    .version('0.0.1')
+    .version('1.0.0')
     .name("xml-sorter")
     .arguments('<file>')
     .action(function (file) { pathSrc = file; })
@@ -40,7 +40,7 @@ opts.tagComparatorByName = Core.composeComparators(
     Core.buildComparatorFromList(program.tagOrder || []),
     Core.alphabeticalComparator);
 
-opts.tagComparatorByAttributes = Core.composeComparators(
+opts.attComparatorByName = Core.composeComparators(
     Core.buildComparatorFromList(program.attributeOrder || []),
     Core.alphabeticalComparator);
 
