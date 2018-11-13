@@ -66,4 +66,6 @@ xml-sorter -t 'z x' -a 'x z' file.xml
 		<x x="d" z="a" a="d" c="c"/>
 		<x x="d" z="a" a="e" c="d"/>
 		<x x="d" z="e" a="c" c="b"/>
+	</tagsWithSameName>
+</sorting>
 ```
