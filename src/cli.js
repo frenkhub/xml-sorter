@@ -45,7 +45,7 @@ opts.attComparatorByName = Core.composeComparators(
     Core.alphabeticalComparator);
 
 opts.tagComparatorByAttributes = Core.buildAttribsComparator(
-    opts.tagComparatorByAttributes,
+    opts.attComparatorByName,
     Core.alphabeticalComparator
 );
 

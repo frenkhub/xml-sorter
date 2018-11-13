@@ -2,14 +2,14 @@
   "name": "xml-sorter",
   "version": "1.0.0",
   "description": "Simple command line utility for sorting xml content by tag name, attribute name and attribute value.",
-  "main": "",
+  "main": "./src/core.js",
   "scripts": {
     "test": "npx mocha -w"
   },
   "bin": {
     "xml-sorter": "./src/cli.js"
   },
-  "author": "",
+  "author": "optimusfrenk",
   "license": "ISC",
   "dependencies": {
     "commander": "^2.19.0",

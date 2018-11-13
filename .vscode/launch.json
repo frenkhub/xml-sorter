@@ -67,6 +67,32 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "sort tag by values - error?",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+				"-t",
+                "z x",
+                "-a",
+                "x z",
+                "integration-test/4-input.xml"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "sort readme example",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+				"-t",
+                "z x",
+                "-a",
+                "x z",
+                "integration-test/readme-example.xml"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Mocha All",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [

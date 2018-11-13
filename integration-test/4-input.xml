@@ -1,0 +1,7 @@
+<tagsWithSameName>
+    <x b="a" c="b" a="c" x="d" z="e"/>
+    <x b="b" c="c" a="d" x="d" z="a"/>
+    <x b="c" c="d" a="e" x="d" z="a"/>
+    <x b="a" c="b" a="c" x="d" z="z"/>
+    <x b="h" c="g" a="c" x="f" z="e"/>
+</tagsWithSameName>
