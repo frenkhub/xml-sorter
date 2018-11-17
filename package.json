@@ -11,6 +11,14 @@
   },
   "author": "optimusfrenk",
   "license": "ISC",
+  "keywords": [
+    "xml"
+  ],
+  "homepage": "https://github.com/frenkhub/xml-sorter#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frenkhub/xml-sorter.git"
+  },
   "dependencies": {
     "commander": "^2.19.0",
     "lodash": "^4.17.11"
