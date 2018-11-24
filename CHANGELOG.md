@@ -1,10 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.1.0] - 2018-11-24
 
-- Implement `-i` option (ignore case)
-- Remove dependency with lodash (implement uniq function)
+- Added `-i` option (ignore case)
+- Removed dependency with lodash
 
 ## [1.0.0] - 2018-11-15
 - First version published on npm

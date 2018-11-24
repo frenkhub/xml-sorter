@@ -22,6 +22,12 @@ With options `-t` and `-a` you can customize the ordering of tags and attributes
 xml-sorter -t 'firstTag secondTag' -a 'firstAtt secondAtt' path/to/file.xml
 ```
 
+Use option `-i` if you want ignore case.
+
+```
+xml-sorter -i path/to/file.xml
+```
+
 ## Examples
 
 ```xml

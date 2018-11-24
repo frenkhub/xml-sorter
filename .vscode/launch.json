@@ -80,6 +80,16 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "sort with ignore case option",
+            "program": "${workspaceFolder}/src/cli.js",
+            "args": [
+				"-i",
+                "integration-test/5-input.xml"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "sort readme example",
             "program": "${workspaceFolder}/src/cli.js",
             "args": [

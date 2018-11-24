@@ -29,6 +29,7 @@ program
     .option('-t, --tag-order <list>', 'Customize the tag order, ignoring the alphabetical order for tags present in <list>', splitList)
     .option('-a, --attribute-order <list>', 'Customize the attribute order, ignoring the alphatical order for attributes present in <list>', splitList)
     .option('-o, --overwrite', 'Overwrite source file')
+    .option('-i, --ignore-case', 'Ignore case')
     .on('-h', examples)
     .on('--help', examples)
     .parse(process.argv);
@@ -36,17 +37,22 @@ program
 // read file XML
 var input = Core.readFileXML(pathSrc);
 
+// base string comparator
+var strComparator = program.ignoreCase ? 
+    Core.alphabeticalIgnoreCaseComparator :
+    Core.alphabeticalComparator;
+
 opts.tagComparatorByName = Core.composeComparators(
     Core.buildComparatorFromList(program.tagOrder || []),
-    Core.alphabeticalComparator);
+    strComparator);
 
 opts.attComparatorByName = Core.composeComparators(
     Core.buildComparatorFromList(program.attributeOrder || []),
-    Core.alphabeticalComparator);
+    strComparator);
 
 opts.tagComparatorByAttributes = Core.buildAttribsComparator(
     opts.attComparatorByName,
-    Core.alphabeticalComparator
+    strComparator
 );
 
 var output = Core.sort(input, opts);

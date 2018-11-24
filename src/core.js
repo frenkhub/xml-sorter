@@ -1,6 +1,30 @@
 var fs = require('fs');
 var XML = require('./xml');
-var _ = require('lodash');
+
+// get keys of an object
+var getKeys = function (obj) {
+        var ks = [];
+
+        for (var k in obj) {
+                ks.push(k);
+        }
+
+        return ks;
+}
+
+// filter uniqs value
+var filterUniq = function (ls) {
+        var out = [];
+
+        for (var i = 0; i < ls.length; i++) {
+                var v = ls[i];
+                if (!out.includes(v)) {
+                        out.push(v);
+                }
+        }
+
+        return out;
+}
 
 // alphabetical string comparator
 var alphabeticalComparator = exports.alphabeticalComparator = function (a, b) {
@@ -8,28 +32,37 @@ var alphabeticalComparator = exports.alphabeticalComparator = function (a, b) {
                 a > b ? 1 : 0;
 }
 
+// alphabetical case insensitive string comparator
+var alphabeticalIgnoreCaseComparator = exports.alphabeticalIgnoreCaseComparator = function (a, b) {
+        aLow = a.toLowerCase();
+        bLow = b.toLowerCase();
+
+        return aLow < bLow ? -1 :
+                aLow > bLow ? 1 :
+                a < b ? -1 : // (same strings but with different case)
+                a > b ? 1 : 0;
+}
+
 // compare objects by properties values
 var buildObjectComparator = exports.buildAttribsComparator = function (keyComparator, valueComparator) {
 
-        keyComparator = keyComparator || alphabeticalComparator;
-        valueComparator = valueComparator || alphabeticalComparator;
+        keyComparator = keyComparator || alphabeticalIgnoreCaseComparator;
+        valueComparator = valueComparator || alphabeticalIgnoreCaseComparator;
 
-        return function (a,b) {
+        return function (a, b) {
                 a = a['_Attribs'];
                 b = b['_Attribs'];
 
-                var keys = _.keys(a)
-                        .concat(_.keys(b))
-                        .sort(keyComparator);
-                
-                keys = _.uniq(keys);
-                
+                var keysA = getKeys(a);
+                var keysB = getKeys(b);
+                var keys = filterUniq(keysA.concat(keysB)).sort(keyComparator);
+
                 for (var i = 0; i < keys.length; i++) {
                         var k = keys[i];
                         var valueA = a[k];
                         var valueB = b[k];
 
-                        if (valueA && !valueB) { return -1; } 
+                        if (valueA && !valueB) { return -1; }
                         else if (!valueA && valueB) { return 1; }
                         else {
                                 var res = valueComparator(valueA, valueB);
