@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2019-11-24
+
+- Refactoring for improving unit testing
+- Issue #1
+
 ## [1.1.0] - 2018-11-24
 
 - Added `-i` option (ignore case)

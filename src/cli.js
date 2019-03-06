@@ -10,9 +10,6 @@ function splitList(list) {
 // path source file
 var pathSrc;
 
-// sorting options
-var opts = Core.createSortingOptions();
-
 function examples() {
     console.log(
         '\nExamples:\n' +
@@ -22,7 +19,7 @@ function examples() {
 }
 
 program
-    .version('1.0.0')
+    .version('1.1.1')
     .name("xml-sorter")
     .arguments('<file>')
     .action(function (file) { pathSrc = file; })
@@ -37,23 +34,11 @@ program
 // read file XML
 var input = Core.readFileXML(pathSrc);
 
-// base string comparator
-var strComparator = program.ignoreCase ? 
-    Core.alphabeticalIgnoreCaseComparator :
-    Core.alphabeticalComparator;
-
-opts.tagComparatorByName = Core.composeComparators(
-    Core.buildComparatorFromList(program.tagOrder || []),
-    strComparator);
-
-opts.attComparatorByName = Core.composeComparators(
-    Core.buildComparatorFromList(program.attributeOrder || []),
-    strComparator);
-
-opts.tagComparatorByAttributes = Core.buildAttribsComparator(
-    opts.attComparatorByName,
-    strComparator
-);
+// sorting options
+var opts = Core.createSortingOptionsHelper(
+    program.tagOrder, 
+    program.attributeOrder, 
+    program.ignoreCase);
 
 var output = Core.sort(input, opts);
 

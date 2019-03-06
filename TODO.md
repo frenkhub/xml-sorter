@@ -1,1 +1,3 @@
-- Improve testing
+- When no argument is passed, show friendly message
+- When a not xml file is passed, show friendly message
+- sorting by case 

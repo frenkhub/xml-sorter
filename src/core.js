@@ -34,17 +34,20 @@ var alphabeticalComparator = exports.alphabeticalComparator = function (a, b) {
 
 // alphabetical case insensitive string comparator
 var alphabeticalIgnoreCaseComparator = exports.alphabeticalIgnoreCaseComparator = function (a, b) {
+        a = a || "";
+        b = b || "";
+
         aLow = a.toLowerCase();
         bLow = b.toLowerCase();
 
         return aLow < bLow ? -1 :
                 aLow > bLow ? 1 :
-                a < b ? -1 : // (same strings but with different case)
-                a > b ? 1 : 0;
+                        a < b ? -1 : // (same strings but with different case)
+                                a > b ? 1 : 0;
 }
 
 // compare objects by properties values
-var buildObjectComparator = exports.buildAttribsComparator = function (keyComparator, valueComparator) {
+var buildAttribsComparator = exports.buildAttribsComparator = function (keyComparator, valueComparator) {
 
         keyComparator = keyComparator || alphabeticalIgnoreCaseComparator;
         valueComparator = valueComparator || alphabeticalIgnoreCaseComparator;
@@ -85,7 +88,9 @@ exports.invertComparator = function (comparator) {
 }
 
 // create a string comparator from a list of strings
-exports.buildComparatorFromList = function (list) {
+var buildComparatorFromList = exports.buildComparatorFromList = function (list) {
+
+        list = list || [];
 
         function score(string) {
                 var y = list.findIndex(function (z) { return z === string });
@@ -98,10 +103,36 @@ exports.buildComparatorFromList = function (list) {
 }
 
 // compose comparators
-exports.composeComparators = function (primaryComparator, secondaryComparator) {
+var composeComparators = exports.composeComparators = function (primaryComparator, secondaryComparator) {
         return function (a, b) {
                 return primaryComparator(a, b) || secondaryComparator(a, b);
         }
+}
+
+// create a tag comparatore
+var createComparatorHelper = exports.createComparatorHelper = function (precedenceList, ignoreCase) {
+        var comparator = buildComparatorFromList(precedenceList);
+
+        if (ignoreCase) {
+                comparator = composeComparators(comparator, alphabeticalIgnoreCaseComparator);
+        } else {
+                comparator = composeComparators(comparator, alphabeticalComparator);
+        }
+
+        return comparator;
+}
+
+// create a tag comparatore
+var createAttribsComparatorHelper = exports.createAttribsComparatorHelper = function (precedenceList, ignoreCase) {
+        var comparator = buildComparatorFromList(precedenceList);
+
+        if (ignoreCase) {
+                comparator = composeComparators(comparator, alphabeticalIgnoreCaseComparator);
+        } else {
+                comparator = composeComparators(comparator, alphabeticalComparator);
+        }
+
+        return buildAttribsComparator(comparator, alphabeticalIgnoreCaseComparator);
 }
 
 // read file content
@@ -114,16 +145,26 @@ exports.writeFile = function (path, content) {
         return fs.writeFileSync(path, content);
 }
 
-// create
+// create sorting options
 var createSortingOptions = exports.createSortingOptions = function (
         tagComparatorByName,
         tagComparatorByAttributes,
         attComparatorByName) {
         return ({
                 tagComparatorByName: tagComparatorByName || alphabeticalComparator,
-                tagComparatorByAttributes: tagComparatorByAttributes || buildObjectComparator(),
+                tagComparatorByAttributes: tagComparatorByAttributes || buildAttribsComparator(),
                 attComparatorByName: attComparatorByName || alphabeticalComparator
         });
+}
+
+// create sorting options helper
+exports.createSortingOptionsHelper = function (tags, attrs, ignoreCase) {
+        var opts = {};
+        opts.tagComparatorByName = createComparatorHelper(tags, ignoreCase);
+        opts.attComparatorByName = createComparatorHelper(attrs, ignoreCase);
+        opts.tagComparatorByAttributes = createAttribsComparatorHelper(attrs, ignoreCase);
+
+        return opts;
 }
 
 // sort XML content
