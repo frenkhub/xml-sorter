@@ -571,7 +571,7 @@ var compose_xml = exports.stringify = function compose_xml(node, name, indent, i
 	} // complex node
 	else {
 		// node is simple string
-		xml += indent_text + "<" + name + ">" + encode_entities(node) + "</" + name + ">" + eol;
+		xml += indent_text + "<" + name + ">" + node + "</" + name + ">" + eol;
 	} // simple text node
 
 	return xml;

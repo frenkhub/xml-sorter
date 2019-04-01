@@ -19,7 +19,7 @@ function examples() {
 }
 
 program
-    .version('1.1.1')
+    .version('1.1.2')
     .name("xml-sorter")
     .arguments('<file>')
     .action(function (file) { pathSrc = file; })
