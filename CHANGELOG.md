@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - 2021-06-03
+
+- Issue #4 and #5
+
 ## [1.1.2] - 2019-04-01
 
 - Issue #2
