@@ -528,13 +528,13 @@ var compose_xml = exports.stringify = function compose_xml(node, name, indent, i
 				var sorted_keys = sort ? hash_keys_to_array(node["_Attribs"]).sort(attribute_sorter) : hash_keys_to_array(node["_Attribs"]);
 				for (var idx = 0, len = sorted_keys.length; idx < len; idx++) {
 					var key = sorted_keys[idx];
-					xml += " " + key + "=\"" + encode_attrib_entities(node["_Attribs"][key]) + "\"";
+					xml += "\n" + indent_text+ " "+ name.replace(/./g, ' ') + key + "=\"" + encode_attrib_entities(node["_Attribs"][key]) + "\"";
 				}
 			} // has attribs
 
 			if (num_keys > has_attribs) {
 				// has child elements
-				xml += ">";
+				xml += "\n>";
 
 				if (node["_Data"]) {
 					// simple text child node
