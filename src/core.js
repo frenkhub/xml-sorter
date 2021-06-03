@@ -158,11 +158,12 @@ var createSortingOptions = exports.createSortingOptions = function (
 }
 
 // create sorting options helper
-exports.createSortingOptionsHelper = function (tags, attrs, ignoreCase) {
+exports.createSortingOptionsHelper = function (tags, attrs, ignoreCase, splitAttributes) {
         var opts = {};
         opts.tagComparatorByName = createComparatorHelper(tags, ignoreCase);
         opts.attComparatorByName = createComparatorHelper(attrs, ignoreCase);
         opts.tagComparatorByAttributes = createAttribsComparatorHelper(attrs, ignoreCase);
+        opts.splitAttributes = splitAttributes || false;
 
         return opts;
 }
@@ -189,5 +190,6 @@ exports.sort = function (xmlString, opts) {
                 undefined,
                 opts.tagComparatorByName,
                 opts.tagComparatorByAttributes,
-                opts.attComparatorByName);
+                opts.attComparatorByName,
+                opts.splitAttributes);
 }

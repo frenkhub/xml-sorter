@@ -392,13 +392,24 @@ XML.prototype.getTree = function () {
 	return this.tree;
 };
 
-XML.prototype.compose = function (indent_string, eol, tag_sorter_by_name, tag_sorter_with_same_name, attribute_sorter) {
+XML.prototype.compose = function (indent_string, eol, tag_sorter_by_name, tag_sorter_with_same_name, attribute_sorter, split_attributes) {
 	// compose tree back into XML
 	if (typeof (eol) == 'undefined') eol = "\n";
 	var tree = this.tree;
 	if (this.preserveDocumentNode) tree = tree[this.documentNodeName];
 
-	var raw = compose_xml(tree, this.documentNodeName, 0, indent_string, eol, true, tag_sorter_by_name, tag_sorter_with_same_name, attribute_sorter);
+	var raw = compose_xml(
+		tree, 
+		this.documentNodeName, 
+		0, 
+		indent_string, 
+		eol, 
+		true, 
+		tag_sorter_by_name, 
+		tag_sorter_with_same_name, 
+		attribute_sorter,
+		split_attributes);
+
 	var body = raw.replace(/^\s*\<\?.+?\?\>\s*/, '');
 	var xml = '';
 
@@ -488,7 +499,18 @@ var decode_entities = exports.decodeEntities = function decode_entities(text) {
 	return text;
 };
 
-var compose_xml = exports.stringify = function compose_xml(node, name, indent, indent_string, eol, sort, tag_sorter_by_name, tag_sorter_with_same_name, attribute_sorter) {
+var compose_xml = exports.stringify = function compose_xml(
+	node, 
+	name, 
+	indent, 
+	indent_string, 
+	eol, 
+	sort, 
+	tag_sorter_by_name, 
+	tag_sorter_with_same_name, 
+	attribute_sorter,
+	split_attributes) {
+
 	// Compose node into XML including attributes
 	// Recurse for child nodes
 	if (typeof (indent_string) == 'undefined') indent_string = "\t";
@@ -528,13 +550,14 @@ var compose_xml = exports.stringify = function compose_xml(node, name, indent, i
 				var sorted_keys = sort ? hash_keys_to_array(node["_Attribs"]).sort(attribute_sorter) : hash_keys_to_array(node["_Attribs"]);
 				for (var idx = 0, len = sorted_keys.length; idx < len; idx++) {
 					var key = sorted_keys[idx];
-					xml += "\n" + indent_text+ " "+ name.replace(/./g, ' ') + key + "=\"" + encode_attrib_entities(node["_Attribs"][key]) + "\"";
+					xml += split_attributes ? "\n" + indent_text+ " "+ name.replace(/./g, ' ') : " ";
+					xml += key + "=\"" + encode_attrib_entities(node["_Attribs"][key]) + "\"";
 				}
 			} // has attribs
 
 			if (num_keys > has_attribs) {
 				// has child elements
-				xml += "\n>";
+				xml += split_attributes ? "\n>" : ">";
 
 				if (node["_Data"]) {
 					// simple text child node
@@ -548,7 +571,7 @@ var compose_xml = exports.stringify = function compose_xml(node, name, indent, i
 						var key = sorted_keys[idx];
 						if ((key != "_Attribs") && key.match(re_valid_tag_name)) {
 							// recurse for node, with incremented indent value
-							xml += compose_xml(node[key], key, indent + 1, indent_string, eol, sort, tag_sorter_by_name, tag_sorter_with_same_name, attribute_sorter);
+							xml += compose_xml(node[key], key, indent + 1, indent_string, eol, sort, tag_sorter_by_name, tag_sorter_with_same_name, attribute_sorter, split_attributes);
 						} // not _Attribs key
 					} // foreach key
 
@@ -565,7 +588,7 @@ var compose_xml = exports.stringify = function compose_xml(node, name, indent, i
 			node = sort ? node.sort(tag_sorter_with_same_name) : node;
 			for (var idx = 0; idx < node.length; idx++) {
 				// recurse for node in array with same indent
-				xml += compose_xml(node[idx], name, indent, indent_string, eol, sort, tag_sorter_by_name, tag_sorter_with_same_name, attribute_sorter);
+				xml += compose_xml(node[idx], name, indent, indent_string, eol, sort, tag_sorter_by_name, tag_sorter_with_same_name, attribute_sorter, split_attributes);
 			}
 		} // array of nodes
 	} // complex node

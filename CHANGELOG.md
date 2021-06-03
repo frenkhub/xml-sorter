@@ -1,9 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.1.2] - 2021-06-03
+## [1.2.0] - 2021-06-03
 
 - Issue #4 and #5
+- Added `-s` option (split one attribute per line)
+
+Special thanks to albfan for his feedback.
 
 ## [1.1.2] - 2019-04-01
 

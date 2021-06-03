@@ -19,7 +19,7 @@ function examples() {
 }
 
 program
-    .version('1.1.3')
+    .version('1.2.0')
     .name("xml-sorter")
     .arguments('<file>')
     .action(function (file) { pathSrc = file; })
@@ -27,6 +27,7 @@ program
     .option('-a, --attribute-order <list>', 'Customize the attribute order, ignoring the alphatical order for attributes present in <list>', splitList)
     .option('-o, --overwrite', 'Overwrite source file')
     .option('-i, --ignore-case', 'Ignore case')
+    .option('-s, --split-attributes', 'Split attributes in more lines (one line per attribute)')
     .on('-h', examples)
     .on('--help', examples)
     .parse(process.argv);
@@ -42,7 +43,8 @@ var input = Core.readFileXML(pathSrc);
 var opts = Core.createSortingOptionsHelper(
     program.tagOrder, 
     program.attributeOrder, 
-    program.ignoreCase);
+    program.ignoreCase,
+    program.splitAttributes);
 
 var output = Core.sort(input, opts);
 

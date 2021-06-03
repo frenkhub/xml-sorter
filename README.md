@@ -28,6 +28,12 @@ Use option `-i` if you want ignore case.
 xml-sorter -i path/to/file.xml
 ```
 
+Use option `-s` if you want to split one attribute per line.
+
+```
+xml-sorter -s path/to/file.xml
+```
+
 ## Examples
 
 ```xml
@@ -53,7 +59,7 @@ xml-sorter -i path/to/file.xml
 </sorting>
 ```
 
-```
+```xml
 xml-sorter -t 'z x' -a 'x z' file.xml
 
 <?xml version="1.0"?>
