@@ -55,10 +55,10 @@ describe('xml-sort', function () {
             "<artist f=\"aaa\"/>" +
             "<artist f=\"bbb\"/>" +
             "<artist b=\"ccc\"/>" +
-            "<artist a=\"zzz\"/>" +
-            "<artist c=\"aaa\"/>" +
-            "<artist d=\"aaa\"/>" +
             "<artist e=\"aaa\"/>" +
+            "<artist d=\"aaa\"/>" +
+            "<artist c=\"aaa\"/>" +
+            "<artist a=\"zzz\"/>" +
             "</root>";
 
         var customComparator = Core.buildComparatorFromList(["f", "b"]);

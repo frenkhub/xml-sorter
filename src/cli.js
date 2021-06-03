@@ -31,6 +31,10 @@ program
     .on('--help', examples)
     .parse(process.argv);
 
+if (!pathSrc) {
+    program.help();
+}
+
 // read file XML
 var input = Core.readFileXML(pathSrc);
 
