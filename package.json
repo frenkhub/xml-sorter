@@ -1,6 +1,6 @@
 {
   "name": "xml-sorter",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Simple command line utility for sorting xml content by tag name, attribute name and attribute value.",
   "main": "./src/core.js",
   "scripts": {
@@ -23,6 +23,6 @@
     "commander": "^2.19.0"
   },
   "devDependencies": {
-    "mocha": "^8.4.0"
+    "mocha": "^10.2.0"
   }
 }
